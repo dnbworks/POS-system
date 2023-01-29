@@ -1,23 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
+import { Route, Routes } from 'react-router-dom';
+import Navbar from './components/Navbar';
+import Header from './components/Header';
+import AddPersonModal from './components/Home/AddPersonModal';
+import Home from './views/Home';
+import Report from './views/Report';
+import Settings from './views/Settings';
+import Chart from './views/Chart';
+import Statistic from './views/Statistic';
+import Options from './views/Options';
+import LoginPage from './views/LoginPage';
+import AddPersonDetails from './components/Home/AddPersonDetails';
+import SelectedItemModal from './components/Home/SelectedItemModal';
+import { useGlobalContext } from './context/AppContext';
+import DiscountModal from './components/Home/DiscountModal';
 
 function App() {
+  const { state } = useGlobalContext();
+  console.log(state);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='wrapper'>
+      <Header/>
+      <div className="sub__wrapper">
+       <Navbar/>
+       
+      <Routes>
+        <Route exact path="/" component={Home} />
+        {/* <Route path="/report" component={Report} />
+        <Route path="/settings" component={Settings} />
+        <Route path="/charts" component={Chart} />
+        <Route path="/statistic" component={Statistic} />
+        <Route path="/options" component={Options} />
+        <Route path="/login" component={LoginPage} /> */}
+      </Routes>
+      </div>
+      {/* <AddPersonModal/>
+      <AddPersonDetails/>
+      { state.isOpenSelectedModal && <SelectedItemModal/> }
+      { state.discountModal && <DiscountModal/> }  */}
     </div>
   );
 }
