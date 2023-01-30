@@ -4,8 +4,8 @@ import { useHistory } from "react-router-dom";
 
 const Default = () => {
   // how to log the default component props
-  const history = useHistory();
-  console.log(useHistory());
+  // const history = useHistory();
+  // { history.location.pathname }
   return (
     <div className='container'>
       <div className="row">
@@ -13,7 +13,7 @@ const Default = () => {
           <h1 className='dispaly-4'>404</h1>
           <h1>Error</h1>
           <h2>Page not found</h2>
-          <p>The requested URL <span>{ history.location.pathname }</span> was not found</p>
+          <p>The requested URL <span></span> was not found</p>
         </div>
       </div>
     </div>

@@ -5,7 +5,7 @@ const DiscountModal = () => {
     const { state } = useGlobalContext();
     const [discount, setDiscount] = useState(state.selectedItem ? state.selectedItem.discount : "0.00")
     const [error, setError ] = useState("")
-    const inputRef = useRef<HTMLInputElement>(null);
+    const inputRef = useRef(null);
 
     const regex = /^[0-9]+\.[0-9]{2}$/;
 

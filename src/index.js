@@ -16,14 +16,4 @@ root.render(
     </Router>
   </React.StrictMode>
 );
-// ReactDOM.render(
-//   <React.StrictMode>
-//     <Router>
-//       <AppProvider>
-//         <App />
-//       </AppProvider>
-//     </Router>
-//   </React.StrictMode>,
-//   document.getElementById('root')
-// );
 

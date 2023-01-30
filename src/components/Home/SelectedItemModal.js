@@ -2,12 +2,14 @@ import React, { useState, useRef, useEffect } from 'react'
 import { useGlobalContext } from '../../context/AppContext';
 
 const SelectedItemModal = () => {
-  const { state: {closeModal, selectedItem, add_to_cart, editQty, edit} } = useGlobalContext();
+  // const { state: {closeModal, selectedItem, add_to_cart, editQty, edit} } = useGlobalContext();
+  const { state } = useGlobalContext();
+  console.log(state);
 
   const [quantity, setQuantity ] = useState(selectedItem ? selectedItem.qty : 0)
   const [error, setError ] = useState("")
 
-  const inputRef = useRef<HTMLInputElement>(null);
+  const inputRef = useRef(null);
 
   const regex = /^[1-9][0-9]*$/;
   

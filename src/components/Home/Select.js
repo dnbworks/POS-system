@@ -1,9 +1,9 @@
 import React, { useRef, useLayoutEffect } from 'react';
 
 const Select = () => {
-    const customSelect = useRef<HTMLSelectElement>(null);
-    const customDiv = useRef<HTMLDivElement>(null);
-    var  j, ll: number, a: any, b: any, c: any;
+    const customSelect = useRef(null);
+    const customDiv = useRef(null);
+    var  j, ll, a, b, c;
 
     useLayoutEffect(() => {
       if (null !== customSelect.current && null !== customDiv.current) {
@@ -23,7 +23,7 @@ const Select = () => {
           /* For each option in the original select element, create a new DIV that will act as an option item: */
           c = document.createElement("DIV");
           c.innerHTML = customSelect.current.options[j].innerHTML;
-          c.addEventListener("click", function(e: MouseEvent) {
+          c.addEventListener("click", function(e) {
           /* When an item is clicked, update the original select box, and the selected item: */
             var y, i, k, s, h, sl, yl;
 
@@ -53,7 +53,7 @@ const Select = () => {
 
         customDiv.current?.appendChild(b);
 
-        a.addEventListener("click", function(e: MouseEvent) {
+        a.addEventListener("click", function(e) {
             /* When the select box is clicked, close any other select boxes,
             and open/close the current select box: */
             e.stopPropagation();
@@ -62,7 +62,7 @@ const Select = () => {
             a.classList.toggle("select-arrow-active");
         });
 
-        function closeAllSelect(elmnt: any) {
+        function closeAllSelect(elmnt) {
             /* A function that will close all select boxes in the document,
             except the current select box: */
             var x, y, i, xl, yl, arrNo = [];

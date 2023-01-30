@@ -9,12 +9,17 @@ import Search from '../components/Home/Search';
 import { useGlobalContext } from '../context/AppContext';
 import ItemsList from '../components/Home/ItemsList';
 import SelectedItems from '../components/Home/SelectedItems';
+import AddPersonModal from '../components/Home/AddPersonModal';
+import AddPersonDetails from '../components/Home/AddPersonDetails';
+import SelectedItemModal from '../components/Home/SelectedItemModal';
+import DiscountModal from '../components/Home/DiscountModal';
+
 
 // AiOutlineSortAscending
 // AiOutlineSortDescending
 
 const Home = () => {
-  const { openModal, storeProducts, cart } = useGlobalContext();
+  const { state: { openModal, storeProducts, cart, isOpenSelectedModal, discountModal }  } = useGlobalContext();
   return (
     <div className="container">
         <div className="header d-flex border">
@@ -80,6 +85,10 @@ const Home = () => {
            
           </div>
         </div>
+        <AddPersonModal/>
+        <AddPersonDetails/>
+        { isOpenSelectedModal && <SelectedItemModal/> }
+        { discountModal && <DiscountModal/> } 
       </div>
   )
 }

@@ -1,7 +1,4 @@
 import { Route, Routes } from 'react-router-dom';
-import Navbar from './components/Navbar';
-import Header from './components/Header';
-import AddPersonModal from './components/Home/AddPersonModal';
 import Home from './views/Home';
 import Report from './views/Report';
 import Settings from './views/Settings';
@@ -9,34 +6,31 @@ import Chart from './views/Chart';
 import Statistic from './views/Statistic';
 import Options from './views/Options';
 import LoginPage from './views/LoginPage';
-import AddPersonDetails from './components/Home/AddPersonDetails';
-import SelectedItemModal from './components/Home/SelectedItemModal';
+import ErrorPage from './views/404';
 import { useGlobalContext } from './context/AppContext';
-import DiscountModal from './components/Home/DiscountModal';
+import SharedLayout from './views/SharedLayout';
 
 function App() {
   const { state } = useGlobalContext();
-  console.log(state);
+  
   return (
     <div className='wrapper'>
-      <Header/>
       <div className="sub__wrapper">
-       <Navbar/>
-       
       <Routes>
-        <Route exact path="/" component={Home} />
-        {/* <Route path="/report" component={Report} />
-        <Route path="/settings" component={Settings} />
-        <Route path="/charts" component={Chart} />
-        <Route path="/statistic" component={Statistic} />
-        <Route path="/options" component={Options} />
-        <Route path="/login" component={LoginPage} /> */}
+        <Route path="/" element={<SharedLayout state={state}/>}>
+          <Route index element={<Home />} />
+          <Route path="report" element={<Report />} />
+          <Route path="settings" element={<Settings/>} />
+          <Route path="charts" element={<Chart/>} />
+          <Route path="statistic" element={<Statistic/>} />
+          <Route path="options" element={<Options/>} />
+          <Route path="login" element={<LoginPage/>} />
+          <Route path="*" element={<ErrorPage/>} />
+        </Route>
+   
       </Routes>
       </div>
-      {/* <AddPersonModal/>
-      <AddPersonDetails/>
-      { state.isOpenSelectedModal && <SelectedItemModal/> }
-      { state.discountModal && <DiscountModal/> }  */}
+      
     </div>
   );
 }
