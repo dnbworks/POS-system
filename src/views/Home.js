@@ -13,6 +13,7 @@ import AddPersonModal from '../components/Home/AddPersonModal';
 import AddPersonDetails from '../components/Home/AddPersonDetails';
 import SelectedItemModal from '../components/Home/SelectedItemModal';
 import DiscountModal from '../components/Home/DiscountModal';
+import Dropdown from '../components/Home/Dropdown';
 
 
 // AiOutlineSortAscending
@@ -20,6 +21,12 @@ import DiscountModal from '../components/Home/DiscountModal';
 
 const Home = () => {
   const { state: { openModal, storeProducts, cart, isOpenSelectedModal, discountModal }  } = useGlobalContext();
+  const options = [
+    { value: "product_name", label: "Product Name"},
+    { value: "date_inserted", label: "Date inserted"},
+    { value: "no_items_sold", label: "No. items sold"},
+    { value: "price", label: "Price"},
+  ]
   return (
     <div className="container">
         <div className="header d-flex border">
@@ -74,7 +81,7 @@ const Home = () => {
              </div>
              <div className="sortby d-flex">
                 <span>sort by:</span>
-                <Select/>
+                {/* <Select/> */} <Dropdown placeHolder="select..." options={options} />
               </div>
               <div className="sortby d-flex justify-content-between">
                 <OrderByAscDec/>
