@@ -2,9 +2,9 @@ import React, { useState, useRef, useEffect } from 'react'
 import { useGlobalContext } from '../../context/AppContext';
 
 const SelectedItemModal = () => {
-  // const { state: {closeModal, selectedItem, add_to_cart, editQty, edit} } = useGlobalContext();
-  const { state } = useGlobalContext();
-  console.log(state);
+  const { state: {closeModal, selectedItem, add_to_cart, editQty, edit} } = useGlobalContext();
+  // const { state } = useGlobalContext();
+  // console.log(state);
 
   const [quantity, setQuantity ] = useState(selectedItem ? selectedItem.qty : 0)
   const [error, setError ] = useState("")

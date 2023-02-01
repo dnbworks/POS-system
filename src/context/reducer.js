@@ -9,15 +9,15 @@ export function reducer(state, action)  {
       }
       if(typeof action.payload.type === "number"){
         const item = state.storeProducts.find((item) => item.id === action.payload.type)
-        return { ...state, isOpenSelectedModal: true, item  }
+        return { ...state, isOpenSelectedModal: true, selectedItem: item  }
       }
       if(action.payload.type === "qty"){
         const item = state.cart.find((item) => item.id === action.payload.type)
-        return { ...state, isOpenSelectedModal: true, item, edit: true  }
+        return { ...state, isOpenSelectedModal: true, selectedItem: item, edit: true  }
       }
       if(action.payload.type === "discount"){
         const item = state.cart.find(item => item.id === action.payload.type)
-        return { ...state, discountModal: true, item, edit: true  }
+        return { ...state, discountModal: true, selectedItem: item, edit: true  }
       }
       return { ...state, isAddPersonModalOpen: true }
  
@@ -110,7 +110,22 @@ export function reducer(state, action)  {
       return { ...state, cart: tempCart, isOpenSelectedModal: false }
 
     case 'GET_TOTALS':
-      return { ...state }
+      let { cartSubTotal, amount } = state.cart.reduce((cartTotal, cartItem) => {
+		    const { total, count } = cartItem
+		    cartTotal.cartSubTotal += parseFloat(total)
+		    cartTotal.amount += count
+		    return cartTotal
+	    },
+	    {
+		    cartSubTotal: 0,
+		    amount: 0,
+	    }
+	    )
+	    cartSubTotal = parseFloat(cartSubTotal).toFixed(2);
+	    const cartTax = parseFloat(cartSubTotal * 0.1).toFixed(2);
+	    const cartTotal = (parseFloat(cartSubTotal) + parseFloat(cartTax)).toFixed(2);
+	    console.log(typeof(cartSubTotal));
+      return { ...state, cartSubTotal, cartTax, cartTotal }
       
     default:
       return state;
