@@ -792,3 +792,52 @@ cursor: pointer;
     background-color: #0d6efd;
     color: #fff;
 }
+
+
+
+
+/* Login page*/
+
+.login h3 {
+    text-align: center;
+}
+
+.login {
+    width: 300px;
+    margin: 0 auto;
+}
+
+.input-field {
+    padding: 5px 0;
+}
+
+.input-field label {
+   padding-bottom: 5px;
+   display: block;
+}
+
+
+.input-field input{
+    width: 100%;
+    padding: 5px;
+    outline: none;
+}
+
+.login button {
+    padding: 5px 15px;
+    background: #fff;
+    border: 1px solid rgb(217, 217, 217);
+    margin: 0 15px;
+}
+
+.justify-content-right {
+    justify-content: flex-end;
+    margin: 15px 0;
+}
+
+.login a {
+    text-decoration: underline;
+}
+
+
+
