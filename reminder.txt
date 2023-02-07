@@ -1,1 +1,2 @@
 download react-redux
+react icons list

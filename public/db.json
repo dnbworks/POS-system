@@ -4,9 +4,15 @@
         "id": 1,
         "name": "Moen Home Care Brushed Nickel 9\" Designer Hand Grip",
         "img": "/img/moen.jpg",
+        "cost":10,
         "price": 26.40,
         "weight": 2,
-        "category": "Grabs"
+        "category": "Grabs",
+        "inventory_count": 0,
+        "size_weight": "",
+        "country": "",
+        "tax": true,
+        "active": ""
       },
       {
         "id": 2,
@@ -41,7 +47,28 @@
         "firstname": "",
         "lastname": "",
         "email": "",
-        "phone": ""
+        "phone": "",
+        "tax_id": "",
+        "address": "",
+        "city": "",
+        "state": "",
+        "zipcode": ""
+      }
+    ],
+    "salespersons": [
+      {
+        "name": "",
+        "birthday": "",
+        "Address": "",
+        "email": "",
+        "password": "",
+        "active": false
+      }
+    ],
+    "category": [
+      {
+        "id": 1,
+        "name": "Hand Tools"
       }
     ]
   }

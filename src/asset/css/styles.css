@@ -754,7 +754,7 @@ cursor: pointer;
     text-align: left;
     border: 1px solid #ccc;
     position: relative;
-    border-radius: 5px;
+    /* border-radius: 5px; */
     font-size: 14px;
     width: 125px;
   }
@@ -837,6 +837,35 @@ cursor: pointer;
 
 .login a {
     text-decoration: underline;
+}
+
+
+/* report page*/
+
+.report-nav {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.report-nav ul {
+    display: flex;
+    justify-content: space-around;
+}
+
+.report-nav ul li{
+    padding:5px 10px;
+}
+
+header {
+    justify-content: space-between;
+    background: #eee;
+    align-items: center;
+    margin: 10px 0;
+}
+
+.table-data table {
+    width: 950px;
+    margin-bottom: 15px;
 }
 
 
