@@ -2,8 +2,8 @@
     "products": [
       {
         "id": 1,
-        "name": "Moen Home Care Brushed Nickel 9\" Designer Hand Grip",
-        "img": "/img/moen.jpg",
+        "name": "7-UP REGULAR IN CAN (SLEEK) 330ML",
+        "img": "/img/7UP09Y.jpg",
         "cost":10,
         "price": 26.40,
         "weight": 2,
@@ -16,12 +16,55 @@
       },
       {
         "id": 2,
-        "name": "Moen Home Care Stainless 18\" Exposed Screw Grab Bar",
-        "img": "/img/moen1.jpg",
+        "name": "RITE N'LITE LEMON LIME IN CAN 24/250ML",
+        "img": "/img/RIT18.jpg",
+        "price": 23.25,
+        "weight": 4,
+        "category": "Grabs"
+      },
+      {
+        "id": 3,
+        "name": "CALI ICE APPLE IN CAN 24/330ML",
+        "img": "/img/CAL12.jpg",
+        "price": 23.25,
+        "weight": 4,
+        "category": "Grabs"
+      },
+      {
+        "id": 4,
+        "name": "COKE LIGHT PET BOTTLE 1.5LIT",
+        "img": "/img/COK08Y.jpg",
+        "price": 23.25,
+        "weight": 4,
+        "category": "Grabs"
+      },
+      {
+        "id": 5,
+        "name": "MOUNTAIN DEW IN CAN 250ML",
+        "img": "/img/MOU07.jpg",
+        "price": 23.25,
+        "weight": 4,
+        "category": "Grabs"
+      },
+      {
+        "id": 6,
+        "name": "PEPSI REGULAR IN CAN 250ML",
+        "img": "/img/PEP07.jpg",
+        "price": 23.25,
+        "weight": 4,
+        "category": "Grabs"
+      },
+      {
+        "id": 7,
+        "name": "SPRITE REGULAR CAN (SLIM) 325ML (320ML)",
+        "img": "/img/SPR11.jpg",
         "price": 23.25,
         "weight": 4,
         "category": "Grabs"
       }
+
+
+      
     ],
     "selectedProducts": [
       {
@@ -44,15 +87,15 @@
     "customers": [
       {
         "id": 1,
-        "firstname": "",
-        "lastname": "",
-        "email": "",
-        "phone": "",
-        "tax_id": "",
-        "address": "",
-        "city": "",
-        "state": "",
-        "zipcode": ""
+        "firstname": "Dooyong",
+        "lastname": "Nsaako",
+        "email": "dooyongnsaako@gmail.com",
+        "phone": "09477705099",
+        "tax_id": "3333",
+        "address": "19 Natividad st christine village bgry Dela Paz, Pasig city",
+        "city": "Pasig City",
+        "state": "Metro Manila",
+        "zipcode": "1600"
       }
     ],
     "salespersons": [
@@ -68,7 +111,17 @@
     "category": [
       {
         "id": 1,
-        "name": "Hand Tools"
+        "name": "Carbonated Drink"
+      },
+      {
+        "id": 2,
+        "name": "Milk Based Rtd"
+      },
+      {
+        "id": 3,
+        "name": "Energy Drink-rtd"
       }
+
+      
     ]
   }

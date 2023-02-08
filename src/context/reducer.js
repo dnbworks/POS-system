@@ -1,38 +1,38 @@
 import { InArray, PriceHelper } from "../utils/utilHelpers";
 
-export function reducer(state, action)  {
+export function reducer(state, action) {
 
-  switch(action.type){
+  switch (action.type) {
     case 'OPEN_MODAL':
-      if(action.payload.type === "customer"){
+      if (action.payload.type === "customer") {
         return { ...state, isModalOpen: true }
       }
-      if(typeof action.payload.type === "number"){
+      if (typeof action.payload.type === "number") {
         const item = state.storeProducts.find((item) => item.id === action.payload.type)
-        return { ...state, isOpenSelectedModal: true, selectedItem: item  }
+        return { ...state, isOpenSelectedModal: true, selectedItem: item }
       }
-      if(action.payload.type === "qty"){
+      if (action.payload.type === "qty") {
         const item = state.cart.find((item) => item.id === action.payload.type)
-        return { ...state, isOpenSelectedModal: true, selectedItem: item, edit: true  }
+        return { ...state, isOpenSelectedModal: true, selectedItem: item, edit: true }
       }
-      if(action.payload.type === "discount"){
+      if (action.payload.type === "discount") {
         const item = state.cart.find(item => item.id === action.payload.type)
-        return { ...state, discountModal: true, selectedItem: item, edit: true  }
+        return { ...state, discountModal: true, selectedItem: item, edit: true }
       }
       return { ...state, isAddPersonModalOpen: true }
- 
+
     case 'CLOSE_MODAL':
-      if(action.payload === "customer"){
+      if (action.payload === "customer") {
         return { ...state, isModalOpen: false }
       }
-      if(typeof action.payload === "number"){
-        return { ...state, isOpenSelectedModal: false, selectedItem: undefined  }
+      if (typeof action.payload === "number") {
+        return { ...state, isOpenSelectedModal: false, selectedItem: undefined }
       }
-      if(action.payload == "discount"){
-        return { ...state, discountModal: false, selectedItem:  undefined }
+      if (action.payload == "discount") {
+        return { ...state, discountModal: false, selectedItem: undefined }
       }
       return { ...state, isAddPersonModalOpen: false }
-    
+
     case 'REMOVE':
       return {
         ...state,
@@ -47,14 +47,14 @@ export function reducer(state, action)  {
             discount = parseFloat(String(action.payload.discount));
             TotalDiscount = (discount * cartItem.qty).toFixed(2);
           } else {
-             discount = parseFloat(String(action.payload.discount));
+            discount = parseFloat(String(action.payload.discount));
             percent = (discount / 100) * cartItem.price;
             TotalDiscount = (percent * cartItem.qty).toFixed(2);
           }
-  
+
           const itemTotal = (cartItem.qty * cartItem.price);
           const total = (itemTotal - parseFloat(TotalDiscount)).toFixed(2);
-          
+
           return { ...cartItem, discount: PriceHelper(String(discount)), total, totalDisc: PriceHelper(String(TotalDiscount)) }
         }
         return cartItem
@@ -66,10 +66,10 @@ export function reducer(state, action)  {
         if (cartItem.id === action.payload.product.id) {
           let qty = action.payload.quantity;
           const TotalDiscount = (parseFloat(String(cartItem.discount)) * qty).toFixed(2);
-          console.log( PriceHelper(String(TotalDiscount)));
+          console.log(PriceHelper(String(TotalDiscount)));
           const itemTotal = (qty * cartItem.price);
           const total = (itemTotal - parseFloat(TotalDiscount)).toFixed(2);
-          return { ...cartItem, qty, total, totalDisc: PriceHelper(String(TotalDiscount))}
+          return { ...cartItem, qty, total, totalDisc: PriceHelper(String(TotalDiscount)) }
         }
         return cartItem
       })
@@ -84,17 +84,20 @@ export function reducer(state, action)  {
     case 'DISPLAY_ITEMS':
       return { ...state, storeProducts: action.payload, loading: false }
 
+    case 'DISPLAY_DISPLAY_CATEGORY':
+      return { ...state, category: action.payload, loading: false }
+
     case 'ADD_TO_CART':
       const tempProducts = [...state.storeProducts];
       const index = state.storeProducts.indexOf(action.payload.product);
       const product = tempProducts[index];
 
-      if(!InArray(action.payload.product.id, state.cart)){
+      if (!InArray(action.payload.product.id, state.cart)) {
         const item = { id: product.id, name: product.name, price: product.price, qty: action.payload.quantity, discount: "0.00", totalDisc: "0.00", total: 0 }
         const price = item.price * item.qty;
         item.total = price;
-        return { ...state, cart: [...state.cart, item ], isOpenSelectedModal: false }
-      } 
+        return { ...state, cart: [...state.cart, item], isOpenSelectedModal: false }
+      }
 
       // TODO update discount according to cash entity
       let tempCart = state.cart.map((cartItem) => {
@@ -111,25 +114,25 @@ export function reducer(state, action)  {
 
     case 'GET_TOTALS':
       let { cartSubTotal, amount } = state.cart.reduce((cartTotal, cartItem) => {
-		    const { total, count } = cartItem
-		    cartTotal.cartSubTotal += parseFloat(total)
-		    cartTotal.amount += count
-		    return cartTotal
-	    },
-	    {
-		    cartSubTotal: 0,
-		    amount: 0,
-	    }
-	    )
-	    cartSubTotal = parseFloat(cartSubTotal).toFixed(2);
-	    const cartTax = parseFloat(cartSubTotal * 0.1).toFixed(2);
-	    const cartTotal = (parseFloat(cartSubTotal) + parseFloat(cartTax)).toFixed(2);
-	    console.log(typeof(cartSubTotal));
+        const { total, count } = cartItem
+        cartTotal.cartSubTotal += parseFloat(total)
+        cartTotal.amount += count
+        return cartTotal
+      },
+        {
+          cartSubTotal: 0,
+          amount: 0,
+        }
+      )
+      cartSubTotal = parseFloat(cartSubTotal).toFixed(2);
+      const cartTax = parseFloat(cartSubTotal * 0.1).toFixed(2);
+      const cartTotal = (parseFloat(cartSubTotal) + parseFloat(cartTax)).toFixed(2);
+      console.log(typeof (cartSubTotal));
       return { ...state, cartSubTotal, cartTax, cartTotal }
-      
+
     default:
       return state;
-      
+
   }
 
   // if (action.type === 'GET_TOTALS') {
@@ -148,10 +151,10 @@ export function reducer(state, action)  {
   //   cartSubTotal = parseFloat(cartSubTotal).toFixed(2);
   //   const cartTax = parseFloat(cartSubTotal * 0.1).toFixed(2);
   //   const cartTotal = (parseFloat(cartSubTotal) + parseFloat(cartTax)).toFixed(2);
-   
+
 
   //   return { ...state, cartSubTotal, cartTax, cartTotal, amount }
   // }
-  
+
 }
 

@@ -13,6 +13,7 @@ import AddPersonDetails from '../components/Home/AddPersonDetails';
 import SelectedItemModal from '../components/Home/SelectedItemModal';
 import DiscountModal from '../components/Home/DiscountModal';
 import Dropdown from '../components/Home/Dropdown';
+import CategoryList from '../components/Home/CategoryList';
 
 
 // AiOutlineSortAscending
@@ -57,31 +58,37 @@ const Home = () => {
             </ul>
 
             <SelectedItems />
-            
+
             <div className="totals">
-              <div className="block d-flex">
+              <div className="block d-flex justify-content-between">
                 <span>SubTotal:</span>
                 <span>{cartSubTotal}</span>
               </div>
-              <div className="block">
+              <div className="block d-flex justify-content-between">
                 <span>Tax:</span>
                 <span>{cartTax}</span>
               </div>
-              {/* <div className="block">
+              <div className="block d-flex justify-content-between">
                 <span>Order Discount:</span>
-                <span>{order_discount}</span>
-              </div> */}
-              <div className="block">
+                <span>0</span>
+              </div>
+              <div className="block d-flex justify-content-between">
                 <span>Total:</span>
                 <span>{cartTotal}</span>
               </div>
             </div>
 
             <div className="controls">
-              <button>undo</button>
-              <button>Clear All</button>
-              <button>Print or Send Email</button>
-              <button>Pay</button>
+              <table>
+                <tr>
+                  <td><button>Undo</button></td>
+                  <td><button>Clear All</button></td>
+                </tr>
+                <tr>
+                  <td><button>Print or Send Email</button></td>
+                  <td><button>Pay</button></td>
+                </tr>
+              </table>
             </div>
           </div>
         </div>
@@ -99,9 +106,8 @@ const Home = () => {
               <OrderByAscDec />
             </div>
           </div>
-
           <ItemsList />
-
+          <CategoryList />
         </div>
       </div>
       <AddPersonModal />
