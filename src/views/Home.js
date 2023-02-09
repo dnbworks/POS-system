@@ -32,7 +32,7 @@ const Home = () => {
       <div className="header d-flex border">
         <div className="header__selected--items v-600">
           <ul className="d-flex justify-content-between py">
-            <li onClick={() => openModal("customer")}><BsPersonCircle /></li>
+            <li onClick={() => openModal({type: "customer_search", id: ""})}><BsPersonCircle /></li>
             <li>products({cart.length})</li>
             <li><BiHelpCircle /></li>
           </ul>

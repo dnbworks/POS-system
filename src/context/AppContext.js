@@ -32,6 +32,7 @@ export const initialStates = {
   ],
   cashOptionEntity: "amount",
   isModalOpen: false,
+  isSearchModalOpen:false,
   edit: false,
   discountModal: false,
   isAddPersonModalOpen: false,

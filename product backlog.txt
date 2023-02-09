@@ -1,0 +1,22 @@
+
+navigation hover link [done]
+
+display search customer [done]
+
+fix add customer modal [done]
+
+fix scollbar styles and product list flex styles
+
+fix the pricing on selected items
+
+display list style
+
+fix the search input styles
+
+add a scollbar on the select input
+
+
+==========================
+
+style the select input.
+date and time zones

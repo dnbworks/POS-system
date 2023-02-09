@@ -10,7 +10,7 @@ const AddPersonDetails = () => {
   }
 
     return (
-        <div className='.modal___addPerson'>
+        <div className='modal___addPerson'>
             <div className='container modal__addPerson'>
               <div className="modal__header">
                 <span className="modal__border"></span>

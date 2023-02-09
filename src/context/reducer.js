@@ -4,8 +4,11 @@ export function reducer(state, action) {
 
   switch (action.type) {
     case 'OPEN_MODAL':
-      if (action.payload.type === "customer") {
-        return { ...state, isModalOpen: true }
+      if (action.payload.type === "add_customer") {
+        return { ...state, isAddPersonModalOpen: true }
+      }
+      if (action.payload.type === "customer_search") {
+        return { ...state, isSearchModalOpen: true }
       }
       if (typeof action.payload.type === "number") {
         const item = state.storeProducts.find((item) => item.id === action.payload.type)
@@ -19,11 +22,11 @@ export function reducer(state, action) {
         const item = state.cart.find(item => item.id === action.payload.type)
         return { ...state, discountModal: true, selectedItem: item, edit: true }
       }
-      return { ...state, isAddPersonModalOpen: true }
+      return { ...state }
 
     case 'CLOSE_MODAL':
       if (action.payload === "customer") {
-        return { ...state, isModalOpen: false }
+        return { ...state, isSearchModalOpen: false }
       }
       if (typeof action.payload === "number") {
         return { ...state, isOpenSelectedModal: false, selectedItem: undefined }
