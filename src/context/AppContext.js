@@ -15,6 +15,8 @@ export const initialStates = {
   loading: false,
   cart: getLocalStorage(),
   amount: 0,
+  grid: true,
+  list: false,
   storeProducts: [{ id: 1, name: "Moen Home Care Brushed Nickel 9\" Designer Hand Grip", img: "/img/7UP09Y.jpg", price: 26.40, weight: 2, category: "Grabs" }],
   category:  [
     {
@@ -63,6 +65,10 @@ const AppProvider = ({ children }) => {
   const openModal = (obj) => {
     dispatch({ type: 'OPEN_MODAL', payload: { type: obj.type, id: obj.id } })
   };
+
+  const changeDisplay = (id) => {
+    dispatch({ type: 'CHANGE_DISPLAY', payload: id})
+  }
 
   const closeModal = (id) => {
     dispatch({ type: 'CLOSE_MODAL', payload: id })
@@ -135,7 +141,7 @@ const AppProvider = ({ children }) => {
 
   return (
     <AppContext.Provider
-      value={{ state: { ...state, openModal, closeModal, clearCart, remove, editDiscount, editQty, changeCashEntity, add_to_cart }, dispatch }}
+      value={{ state: { ...state, openModal, closeModal, clearCart, remove, editDiscount, editQty, changeCashEntity, add_to_cart, changeDisplay }, dispatch }}
     >
       {children}
     </AppContext.Provider>

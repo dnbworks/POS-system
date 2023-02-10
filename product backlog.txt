@@ -5,11 +5,16 @@ display search customer [done]
 
 fix add customer modal [done]
 
+display list style [done]
+
+display list & grid functionality [done]
+
+fix list & grid underlying style 
+
 fix scollbar styles and product list flex styles
 
 fix the pricing on selected items
 
-display list style
 
 fix the search input styles
 

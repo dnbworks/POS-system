@@ -8,7 +8,7 @@
         "price": 26.40,
         "weight": 2,
         "category": "Grabs",
-        "inventory_count": 0,
+        "inventory_count": 7,
         "size_weight": "",
         "country": "",
         "tax": true,
@@ -20,7 +20,8 @@
         "img": "/img/RIT18.jpg",
         "price": 23.25,
         "weight": 4,
-        "category": "Grabs"
+        "category": "Grabs",
+        "inventory_count": 4
       },
       {
         "id": 3,
@@ -28,7 +29,8 @@
         "img": "/img/CAL12.jpg",
         "price": 23.25,
         "weight": 4,
-        "category": "Grabs"
+        "category": "Grabs",
+        "inventory_count": 9
       },
       {
         "id": 4,
@@ -36,7 +38,8 @@
         "img": "/img/COK08Y.jpg",
         "price": 23.25,
         "weight": 4,
-        "category": "Grabs"
+        "category": "Grabs",
+        "inventory_count": 10
       },
       {
         "id": 5,
@@ -44,7 +47,8 @@
         "img": "/img/MOU07.jpg",
         "price": 23.25,
         "weight": 4,
-        "category": "Grabs"
+        "category": "Grabs",
+        "inventory_count": 3
       },
       {
         "id": 6,
@@ -52,7 +56,8 @@
         "img": "/img/PEP07.jpg",
         "price": 23.25,
         "weight": 4,
-        "category": "Grabs"
+        "category": "Grabs",
+        "inventory_count": 1
       },
       {
         "id": 7,
@@ -60,7 +65,8 @@
         "img": "/img/SPR11.jpg",
         "price": 23.25,
         "weight": 4,
-        "category": "Grabs"
+        "category": "Grabs",
+        "inventory_count": 11
       }
 
 

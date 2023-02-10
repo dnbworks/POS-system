@@ -905,6 +905,7 @@ header {
 
 .items_list_wrapper {
     overflow-x: scroll;
+    min-height: 300px;
 }
 
 .items_list_wrapper::-webkit-scrollbar {
@@ -941,6 +942,7 @@ header {
     border-radius: 5px;
     padding: 15px;
     margin: 5px;
+    cursor: pointer;
 }
 
 .controls button {
@@ -993,5 +995,23 @@ header {
 .button-container {
     display: flex;
     justify-content: space-between;
+}
+
+.items_list table {
+    width: 100%;
+}
+
+.items_list table tbody tr {
+    border-bottom: 1px solid #e0e0e0;
+}
+
+
+.img-cont {
+    width: 80px;
+    height: 80px;
+}
+
+.img-cont img{
+    width: 100%;
 }
 

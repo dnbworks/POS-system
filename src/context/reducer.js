@@ -41,6 +41,14 @@ export function reducer(state, action) {
         ...state,
         cart: state.cart.filter((cartItem) => cartItem.id !== action.payload),
       }
+    case 'CHANGE_DISPLAY':
+      if (action.payload == "grid") {
+        return { ...state, grid: true, list: false }
+      }
+      if (action.payload == "list") {
+        return { ...state, list: true, grid: false }
+      }
+      return {...state}
 
     case 'EDIT_DISCOUNT':
       let tempCart1 = state.cart.map((cartItem) => {

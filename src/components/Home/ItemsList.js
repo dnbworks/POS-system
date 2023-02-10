@@ -1,16 +1,13 @@
-import React from 'react'
-import { useGlobalContext } from '../../context/AppContext';
-import Item from './Item';
+
+import List from './_displayView/List';
+import Grid from './_displayView/Grid';
 
 const ItemsList = () => {
-  const { state: { storeProducts, openModal } } = useGlobalContext();
+ 
   return (
     <div className="items_list_wrapper d-flex">
-      <div className='items_list d-flex'></div>
-      {storeProducts.map((item) => {
-        return <Item {...item} openModal={openModal} key={item.id} />
-      })}
-
+      <Grid/>
+      <List/>
     </div>
   )
 }
