@@ -85,7 +85,7 @@ const Home = () => {
                   <td><button>Clear All</button></td>
                 </tr>
                 <tr>
-                  <td><button>Print or Send Email</button></td>
+                  <td><button>Discount</button></td>
                   <td><button>Pay</button></td>
                 </tr>
               </table>

@@ -15,13 +15,23 @@ fix scollbar styles and product list flex styles
 
 fix the pricing on selected items
 
-
 fix the search input styles
 
 add a scollbar on the select input
 
+add calculator at Pay
+
+filter functionality
+
+clear all
+
+global discount
+
+print pdf
 
 ==========================
 
 style the select input.
 date and time zones
+
+download calculator
