@@ -4,12 +4,12 @@ import { reducer } from './reducer'
 import axios from 'axios'
 
 let endpoints = [
-  'http://localhost:3001/products',
-  'http://localhost:3001/category'
+  'http://localhost:3004/products',
+  'http://localhost:3004/category'
 ];
 
-const url = 'http://localhost:3001/products';
-const url_categories = ' http://localhost:3001/category';
+const url = 'http://localhost:3004/products';
+const url_categories = 'http://localhost:3004/category';
 
 export const initialStates = {
   loading: false,

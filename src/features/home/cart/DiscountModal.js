@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react'
-import { useGlobalContext } from '../../context/AppContext';
+import { useGlobalContext } from '../../../context/AppContext';
 
 const DiscountModal = () => {
     const { state } = useGlobalContext();
@@ -39,6 +39,7 @@ const DiscountModal = () => {
     useEffect(() => {
       inputRef.current?.setSelectionRange(0, 0); // fix
       inputRef.current?.focus();
+      
 
     });
 

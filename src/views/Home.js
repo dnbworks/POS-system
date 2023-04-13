@@ -1,32 +1,69 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
+
 import { BsPersonCircle } from "react-icons/bs";
 import { BiHelpCircle } from "react-icons/bi";
 import { AiOutlineTable } from "react-icons/ai";
-import OrderByView from '../components/Home/OrderByView';
-import OrderByAscDec from '../components/Home/OrderByAscDec';
-import Search from '../components/Home/Search';
-import { useGlobalContext } from '../context/AppContext';
-import ItemsList from '../components/Home/ItemsList';
-import SelectedItems from '../components/Home/SelectedItems';
-import AddPersonModal from '../components/Home/AddPersonModal';
-import AddPersonDetails from '../components/Home/AddPersonDetails';
-import SelectedItemModal from '../components/Home/SelectedItemModal';
-import DiscountModal from '../components/Home/DiscountModal';
-import Dropdown from '../components/Home/Dropdown';
-import CategoryList from '../components/Home/CategoryList';
+
+import OrderByView from '../features/home/products/OrderByView';
+import OrderByAscDec from '../features/home/products/OrderByAscDec';
+import Search from '../features/home/products/Search';
+import ItemsList from '../features/home/products/ItemsList';
+import SelectedItems from '../features/home/cart/SelectedItems';
+import AddPersonModal from '../features/home/cart/AddPersonModal';
+import AddPersonDetails from '../features/home/cart/AddPersonDetails';
+import SelectedItemModal from '../features/home/cart/SelectedItemModal';
+import DiscountModal from '../features/home/cart/DiscountModal';
+import Dropdown from '../features/home/products/Dropdown';
+import CategoryList from '../features/home/products/CategoryList';
+
+import { useSelector, useDispatch } from 'react-redux';
+import { selectAllCategories, fetchProducts, selectAllProducts, selectstatus } from '../features/home/products/productSlice';
+import { cartItems, selectCartSubTotal, selectCartTax, selectCartTotal } from '../features/home/cart/cartSlice';
 
 
 // AiOutlineSortAscending
 // AiOutlineSortDescending
 
 const Home = () => {
-  const { state: { openModal, storeProducts, cart, isOpenSelectedModal, discountModal, cartSubTotal, cartTax, cartTotal } } = useGlobalContext();
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
+  const [discountModal, setDiscountModal] = useState(false);
+  const [isAddPersonModalOpen, setIsAddPersonModalOpen] = useState(false);
+  const [isOpenSelectedModal, setIsOpenSelectedModal] = useState(false);
+  const [selectedItem, SetselectedItem] = useState({});
+  const [edit, setEdit] = useState(false);
+  const [cashOptionEntity, setcashOptionEntity] = useState("amount");
+  const [list, setList] = useState(false);
+  const [grid, setgrid] = useState(true);
+  const [amount, setAmount] = useState(0);
+
+  const dispatch = useDispatch();
+  const products = useSelector(selectAllProducts);
+  const categories = useSelector(selectAllCategories);
+  const status = useSelector(selectstatus);
+
+  const cart = useSelector(cartItems);
+  const cartSubTotal = useSelector(selectCartSubTotal);
+  const cartTax = useSelector(selectCartTax);
+  const cartTotal = useSelector(selectCartTotal);
+
   const options = [
     { value: "product_name", label: "Product Name" },
     { value: "date_inserted", label: "Date inserted" },
     { value: "no_items_sold", label: "No. items sold" },
     { value: "price", label: "Price" },
   ]
+
+  const openModal = () => {
+
+  }
+
+  useEffect(() => {
+    if (status === 'idle') {
+      dispatch(fetchProducts);
+    }
+  }, [status, dispatch]);
   return (
     <div className="container">
       <div className="header d-flex border">
@@ -39,7 +76,7 @@ const Home = () => {
         </div>
         <div className="header__products v-600">
           <ul className="d-flex justify-content-between py">
-            <li><AiOutlineTable />All({storeProducts.length})</li>
+            <li><AiOutlineTable />All({products.length})</li>
             <li><Search /></li>
           </ul>
         </div>
@@ -106,7 +143,7 @@ const Home = () => {
               <OrderByAscDec />
             </div>
           </div>
-          <ItemsList />
+          <ItemsList grid={grid} list={list} />
           <CategoryList />
         </div>
       </div>

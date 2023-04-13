@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react'
-import { useGlobalContext } from '../../context/AppContext';
+import { useGlobalContext } from '../../../context/AppContext';
 
 const SelectedItemModal = () => {
   const { state: {closeModal, selectedItem, add_to_cart, editQty, edit} } = useGlobalContext();
@@ -7,7 +7,7 @@ const SelectedItemModal = () => {
   // console.log(state);
 
   const [quantity, setQuantity ] = useState(selectedItem ? selectedItem.qty : 0)
-  const [error, setError ] = useState("")
+  const [error, setError ] = useState("");
 
   const inputRef = useRef(null);
 

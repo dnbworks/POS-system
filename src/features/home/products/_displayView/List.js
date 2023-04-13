@@ -1,6 +1,9 @@
-import { useGlobalContext } from '../../../context/AppContext';
-const List = () => {
-    const { state: { storeProducts, openModal, list } } = useGlobalContext();
+import { useSelector } from 'react-redux';
+import { selectAllProducts } from '../productSlice';
+
+const List = ({list}) => {
+    const { state: { openModal } } = useGlobalContext();
+    const products = useSelector(selectAllProducts);
     if (!list) {
         return null;
     }
@@ -15,7 +18,7 @@ const List = () => {
                 </tr>
             </thead>
             <tbody>
-                {storeProducts.map((item) => {
+                {products.map((item) => {
                     return (
                         <tr onClick={() => openModal({ type: item.id })} key={item.id}>
                             <td className='img-cont'><img src={item.img} alt="" /></td>

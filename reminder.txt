@@ -1,5 +1,4 @@
-download react-redux
-react icons list
+json-server --watch db.json --port 3004
 
 // Defined our third promise
 let thirdPromise = () => {
