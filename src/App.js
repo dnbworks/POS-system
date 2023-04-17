@@ -1,4 +1,6 @@
+import { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
+
 import Home from './views/Home';
 import Report from './views/Report';
 import Settings from './views/Settings';
@@ -20,15 +22,35 @@ import ReturnItems from './views/report/ReturnItems';
 import ZReport from './views/report/ZReport';
 
 
+import { useSelector, useDispatch } from 'react-redux';
+import { selectCartItems } from './features/home/cart/cartSlice';
+import { fetchProducts, selectStatus, fetchCategories } from './features/home/products/productSlice';
+
+
 
 function App() {
-  const { state } = useGlobalContext();
+
+  const cart = useSelector(selectCartItems);
+  const status = useSelector(selectStatus);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    localStorage.setItem('cart', JSON.stringify(cart));
+  });
+
+  useEffect(() => {
+    if (status === 'idle') {
+      dispatch(fetchProducts());
+      dispatch(fetchCategories());
+    }
+
+  }, []);
 
   return (
     <div className='wrapper'>
       <div className="sub__wrapper">
         <Routes>
-          <Route path="/" element={<SharedLayout state={state} />}>
+          <Route path="/" element={<SharedLayout />}>
             <Route index element={<Home />} />
             <Route path="report" element={<ReportSharedLayout />} >
               <Route index element={<All />} />

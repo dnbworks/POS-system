@@ -7,7 +7,7 @@ const endpoints = {
 }
 
 const initialState = {
-	products: [],
+	productItems: [],
 	category: [],
 	status: 'idle',
 	error: null
@@ -15,7 +15,15 @@ const initialState = {
 
 export const fetchProducts = createAsyncThunk('products/fetchProducts', async () => {
 	try {
-		const response = await axios.get(url);
+		const response = await axios.get(endpoints.post_url);
+		return [...response.data];
+	} catch (e) {
+		console.log(e.response);
+	}
+});
+export const fetchCategories = createAsyncThunk('categories/fetchCategories', async () => {
+	try {
+		const response = await axios.get(endpoints.category_url);
 		return [...response.data];
 	} catch (e) {
 		console.log(e.response);
@@ -34,19 +42,33 @@ export const productSlice = createSlice({
 				state.status = 'loading';
 			})
 			.addCase(fetchProducts.fulfilled, (state, action) => {
-				state.products = state.products.concat(action.payload);
+				state.productItems = state.productItems.concat(action.payload);
+				// console.log(state.productItems);
 			})
-			addCase(fetchProducts.rejected, (state, action) => {
+			.addCase(fetchProducts.rejected, (state, action) => {
 				state.status = 'failed';
 				state.error = action.error.message;
+			});
+
+			builder
+			.addCase(fetchCategories.pending, (state, action) => {
+				state.status = 'loading';
 			})
+			.addCase(fetchCategories.fulfilled, (state, action) => {
+				state.category = state.category.concat(action.payload);
+				// console.log(state.productItems);
+			})
+			.addCase(fetchCategories.rejected, (state, action) => {
+				state.status = 'failed';
+				state.error = action.error.message;
+			});
 
 	}
 });
 
-export const selectAllProducts = (state) => state.products;
-export const selectAllCategories = (state) => state.category;
-export const selectstatus = (state) => state.status;
+export const selectAllProducts = (state) => state.products.productItems;
+export const selectAllCategories = (state) => state.products.category;
+export const selectStatus = (state) => state.products.status;
 
 export const {  } = productSlice.actions;
 

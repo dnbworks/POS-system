@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import { BsPersonCircle } from "react-icons/bs";
 import { BiHelpCircle } from "react-icons/bi";
@@ -17,8 +17,9 @@ import Dropdown from '../features/home/products/Dropdown';
 import CategoryList from '../features/home/products/CategoryList';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { selectAllCategories, fetchProducts, selectAllProducts, selectstatus } from '../features/home/products/productSlice';
-import { cartItems, selectCartSubTotal, selectCartTax, selectCartTotal } from '../features/home/cart/cartSlice';
+import { selectAllCategories, selectAllProducts } from '../features/home/products/productSlice';
+import { selectCartItems, selectCartSubTotal, selectCartTax, selectCartTotal } from '../features/home/cart/cartSlice';
+
 
 
 // AiOutlineSortAscending
@@ -26,24 +27,23 @@ import { cartItems, selectCartSubTotal, selectCartTax, selectCartTotal } from '.
 
 const Home = () => {
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
   const [discountModal, setDiscountModal] = useState(false);
   const [isAddPersonModalOpen, setIsAddPersonModalOpen] = useState(false);
-  const [isOpenSelectedModal, setIsOpenSelectedModal] = useState(false);
   const [selectedItem, SetselectedItem] = useState({});
   const [edit, setEdit] = useState(false);
-  const [cashOptionEntity, setcashOptionEntity] = useState("amount");
   const [list, setList] = useState(false);
-  const [grid, setgrid] = useState(true);
+  const [grid, setGrid] = useState(true);
   const [amount, setAmount] = useState(0);
 
   const dispatch = useDispatch();
   const products = useSelector(selectAllProducts);
   const categories = useSelector(selectAllCategories);
-  const status = useSelector(selectstatus);
+  const isOpenSelectedModal = useSelector((state) => state.system.isOpenSelectedModal);
 
-  const cart = useSelector(cartItems);
+  console.log(isOpenSelectedModal);
+
+  const cart = useSelector(selectCartItems);
   const cartSubTotal = useSelector(selectCartSubTotal);
   const cartTax = useSelector(selectCartTax);
   const cartTotal = useSelector(selectCartTotal);
@@ -56,27 +56,33 @@ const Home = () => {
   ]
 
   const openModal = () => {
-
+    setIsSearchModalOpen(true);
   }
 
-  useEffect(() => {
-    if (status === 'idle') {
-      dispatch(fetchProducts);
+  const changeDisplay = (id) => {
+    if (id == "grid") {
+      setGrid(true);
+      setList(false);
     }
-  }, [status, dispatch]);
+    if (id == "list") {
+      setGrid(false);
+      setList(true);
+    }
+  }
+
   return (
     <div className="container">
       <div className="header d-flex border">
         <div className="header__selected--items v-600">
           <ul className="d-flex justify-content-between py">
-            <li onClick={() => openModal({type: "customer_search", id: ""})}><BsPersonCircle /></li>
+            <li onClick={openModal}><BsPersonCircle /></li>
             <li>products({cart.length})</li>
             <li><BiHelpCircle /></li>
           </ul>
         </div>
         <div className="header__products v-600">
           <ul className="d-flex justify-content-between py">
-            <li><AiOutlineTable />All({products.length})</li>
+            <li><AiOutlineTable />All({products ? products.length : 0})</li>
             <li><Search /></li>
           </ul>
         </div>
@@ -133,7 +139,7 @@ const Home = () => {
           <div className="options d-flex">
             <div className="view__type d-flex">
               <span>View</span>
-              <OrderByView />
+              <OrderByView changeDisplay={changeDisplay}/>
             </div>
             <div className="sortby d-flex">
               <span>sort by:</span>
@@ -144,13 +150,13 @@ const Home = () => {
             </div>
           </div>
           <ItemsList grid={grid} list={list} />
-          <CategoryList />
+          <CategoryList categories={categories}/>
         </div>
       </div>
-      <AddPersonModal />
+      <AddPersonModal isSearchModalOpen={isSearchModalOpen}/>
       <AddPersonDetails />
       {isOpenSelectedModal && <SelectedItemModal />}
-      {discountModal && <DiscountModal />}
+      {discountModal && <DiscountModal selectedItem={selectedItem}/>}
     </div>
   )
 }

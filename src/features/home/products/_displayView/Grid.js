@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 import { selectAllProducts } from '../productSlice';
 
 const Grid = ({ grid }) => {
-    const { state: { openModal } } = useGlobalContext();
     const products = useSelector(selectAllProducts);
     if (!grid) {
         return null;
@@ -11,7 +10,7 @@ const Grid = ({ grid }) => {
     return (
         <div className='items_list d-flex'>
             {products.map((item) => {
-                return <Item {...item} openModal={openModal} key={item.id} />
+                return <Item item={item} key={item.id} />
             })}
         </div>
     )

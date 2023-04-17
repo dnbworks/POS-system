@@ -1,9 +1,10 @@
 import { useSelector } from 'react-redux';
-import { cartItems } from './cartSlice';
+import { selectCartItems } from './cartSlice';
 import SelectedItem from './SelectedItem';
 
 const SelectedItems = () => {
-  const cart = useSelector(cartItems);
+  const cart = useSelector(selectCartItems);
+  // console.log(cart);
   return (
     <div className="table-wrapper__selected--items">
        { cart.map(item => {

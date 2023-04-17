@@ -2,11 +2,11 @@ import { createSlice } from "@reduxjs/toolkit";
 import { getLocalStorage, InArray } from "../../../utils/utilHelpers";
 
 const initialState = {
-	cart: getLocalStorage(),
+	cartItems: getLocalStorage(),
 	amount: 0,
 	cartSubTotal: 0,
 	cartTax: 0,
-	cartTotal: 0
+	cartTotal: 0,
 }
 
 export const cartSlice = createSlice({
@@ -38,17 +38,23 @@ export const cartSlice = createSlice({
 			})
 			return { ...state, cart: tempCart, isOpenSelectedModal: false }
 		},
-		clearCart: () => { 
+		clearCart: (state, action) => { 
+
+		},
+		editQty: (state, action) => {
+			
+		},
+		edit: (state, action) => {
 
 		}
 	}
 });
 
-export const cartItems = (state) => state.cart;
-export const selectCartSubTotal = (state) => state.cartSubTotal;
-export const selectCartTax = (state) => state.cartTax;
-export const selectCartTotal = (state) => state.cartTotal;
+export const selectCartItems = (state) => state.cart.cartItems;
+export const selectCartSubTotal = (state) => state.cart.cartSubTotal;
+export const selectCartTax = (state) => state.cart.cartTax;
+export const selectCartTotal = (state) => state.cart.cartTotal;
 
-export const { add_to_cart, clearCart } = cartSlice.actions;
+export const { add_to_cart, clearCart, editQty, edit } = cartSlice.actions;
 
 export default cartSlice.reducer;

@@ -2,7 +2,6 @@ import React from 'react'
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { useGlobalContext } from '../../../context/AppContext';
 
-
 const SelectedItem = ({ id, name, price, qty, discount, total, totalDisc }) => {
   const { state: {remove, openModal} } = useGlobalContext();
   return (

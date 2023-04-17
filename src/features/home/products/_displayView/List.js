@@ -1,9 +1,12 @@
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { selectAllProducts } from '../productSlice';
+import { openModal } from '../../../system/systemSlice';
 
 const List = ({list}) => {
-    const { state: { openModal } } = useGlobalContext();
     const products = useSelector(selectAllProducts);
+    const dispatch = useDispatch();
+
+    // console.log(products);
     if (!list) {
         return null;
     }
@@ -20,7 +23,7 @@ const List = ({list}) => {
             <tbody>
                 {products.map((item) => {
                     return (
-                        <tr onClick={() => openModal({ type: item.id })} key={item.id}>
+                        <tr onClick={() => dispatch(openModal({type: "item", item})) } key={item.id}>
                             <td className='img-cont'><img src={item.img} alt="" /></td>
                             <td><span className="">{item.name}</span></td>
                             <td><span className="">{item.inventory_count}</span></td>

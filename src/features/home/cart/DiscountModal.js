@@ -1,11 +1,19 @@
-import React, { useState, useRef, useEffect } from 'react'
-import { useGlobalContext } from '../../../context/AppContext';
+import { useState, useRef, useEffect } from 'react'
 
-const DiscountModal = () => {
-    const { state } = useGlobalContext();
-    const [discount, setDiscount] = useState(state.selectedItem ? state.selectedItem.discount : "0.00")
-    const [error, setError ] = useState("")
+const DiscountModal = ({ selectedItem }) => {
+ 
+    const [discount, setDiscount] = useState(selectedItem ? selectedItem.discount : "0.00");
+    const [error, setError ] = useState("");
+    const [cashOptionEntity, setcashOptionEntity] = useState("amount");
     const inputRef = useRef(null);
+
+    const closeModal = () => {
+
+    }
+
+    const editDiscount = () => {
+      
+    }
 
     const regex = /^[0-9]+\.[0-9]{2}$/;
 
@@ -30,8 +38,8 @@ const DiscountModal = () => {
 
     const handleEdit = (e ) => {
         e.preventDefault();
-        if(state.selectedItem && discount){
-          state.editDiscount(state.selectedItem, discount);
+        if(selectedItem && discount){
+          editDiscount(selectedItem, discount);
         }
         setDiscount(0)
     }
@@ -53,21 +61,21 @@ const DiscountModal = () => {
         <div className="choose">
             <p>Please choose one the the following options</p>
             <div className='d-flex tab-btns justify-content-between'>
-                <button onClick={ () => state.changeCashEntity("amount") } className={`${state.cashOptionEntity === "amount" ? "active-btn" : ""}`}>Amount</button>
-                <button  onClick={ () => state.changeCashEntity("percent") } className={`${state.cashOptionEntity === "percent" ? "active-btn" : ""}`}>Percent</button>
+                <button onClick={ () => setcashOptionEntity("amount") } className={`${cashOptionEntity === "amount" ? "active-btn" : ""}`}>Amount</button>
+                <button  onClick={ () => setcashOptionEntity("percent") } className={`${cashOptionEntity === "percent" ? "active-btn" : ""}`}>Percent</button>
             </div>
         </div>
         <form className="modal__form d-flex justify-content-between">
             <div style={{ width: "200px"}}>
               <label htmlFor="discount">Enter the amount</label>
-              <span className='symbol'>{ state.cashOptionEntity === "amount" ? "$" : "%"}</span>
+              <span className='symbol'>{ cashOptionEntity === "amount" ? "$" : "%"}</span>
               <input type="text" id='discount' value={discount} ref={inputRef} onChange={(e) => handleChange(e)}/>
               { error && (<p>{error}</p>)}
             </div>
             <div className="modal__footer">
                 <button onClick={handleEdit}>OK</button>
                 <button onClick={() => {
-                  state.closeModal("discount")
+                  closeModal("discount")
                   setDiscount(0)
                 }}>Cancel</button>
             </div>

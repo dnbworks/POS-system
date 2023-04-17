@@ -1,10 +1,11 @@
-import React, { useState, useRef, useEffect } from 'react'
-import { useGlobalContext } from '../../../context/AppContext';
+import { useState, useRef, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux';
+import { closeModal } from '../../system/systemSlice';
+import { add_to_cart, editQty, edit } from './cartSlice';
 
 const SelectedItemModal = () => {
-  const { state: {closeModal, selectedItem, add_to_cart, editQty, edit} } = useGlobalContext();
-  // const { state } = useGlobalContext();
-  // console.log(state);
+  const dispatch = useDispatch();
+  const selectedItem = useSelector((state) => state.system.selectedItem);
 
   const [quantity, setQuantity ] = useState(selectedItem ? selectedItem.qty : 0)
   const [error, setError ] = useState("");
@@ -15,7 +16,7 @@ const SelectedItemModal = () => {
   
 
   useEffect(() => {
-    inputRef.current?.setSelectionRange(0, 0);
+    // inputRef.current?.setSelectionRange(0, 0);
     inputRef.current?.focus();
   });
 
@@ -41,13 +42,18 @@ const SelectedItemModal = () => {
 
   const handleAddToCartBtn = ( e ) => {
     e.preventDefault();
-    if (error === "" && quantity && quantity >= 1) {
+    // checking stock
+    if (error === "" && quantity >= 1) {
       if(edit && selectedItem){
         editQty(selectedItem, quantity)
       } else {
         add_to_cart(selectedItem, quantity)
+        console.log("approved");
       }
-      setQuantity(0);
+      console.log(selectedItem, quantity);
+      setQuantity("");
+    } else {
+      setError("please fill in quantity");
     }
   }
 
@@ -58,7 +64,7 @@ const SelectedItemModal = () => {
             <span className="modal__border"></span>
             <div className="modal__title">INPUT QTY</div>
         </div>
-        <form className="modal__form d-flex justify-content-between">
+        <form className="modal__form d-flex justify-content-between" action='#'>
             <div style={{ width: "200px"}}>
               <span>Price:</span>
               <span>$ {selectedItem.price}/kg</span>
@@ -71,7 +77,7 @@ const SelectedItemModal = () => {
             <div className="modal__footer">
                 <button onClick={handleAddToCartBtn}>OK</button>
                 <button onClick={() => {
-                  closeModal(selectedItem.id)
+                  dispatch(closeModal("item"));
                   setQuantity(0)
                 }}>Cancel</button>
             </div>

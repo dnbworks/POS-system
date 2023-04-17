@@ -1,18 +1,25 @@
-import React from 'react';
+import { useDispatch } from "react-redux";
+import { openModal } from "../../system/systemSlice";
+import { useEffect } from "react";
 
+const Item = ({ item }) => {
+  const dispatch = useDispatch();
 
-const Item = ({ id, name, img, weight, price, openModal}) => {
+  useEffect(() => {
+    console.log("re-rendered");
+  })
+  
   return (
-    <div className="item_product" onClick={ () => openModal({ type: id }) }>
+    <div className="item_product" onClick={ () => dispatch(openModal({type: "item", item})) }>
         <div className="weight">
-            <span className='weight__unit'>{weight} kg</span>
+            <span className='weight__unit'>{item.weight} kg</span>
         </div>
         <div className="item__img">
-            <img src={img} alt="" />
+            <img src={item.img} alt="" />
         </div>
         <div className="item_detail d-flex justify-content-between">
-            <span className="item__name">{name}</span >
-            <span className="item__price">${price}</span >
+            <span className="item__name">{item.name}</span >
+            <span className="item__price">${item.price}</span >
         </div>
     </div>
   )

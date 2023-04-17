@@ -6,8 +6,8 @@ const ItemsList = ({grid, list}) => {
  
   return (
     <div className="items_list_wrapper d-flex">
-      <Grid grid={grid}/>
-      <List list={list}/>
+      <Grid grid={grid} />
+      <List list={list} />
     </div>
   )
 }

@@ -1,8 +1,13 @@
-import { useGlobalContext } from '../../../context/AppContext';
 import { BiSearchAlt2 } from "react-icons/bi";
 
-const AddPersonModal = () => {
-  const { state: { isSearchModalOpen, openModal, closeModal } } = useGlobalContext();
+const AddPersonModal = ({isSearchModalOpen}) => {
+
+  const openModal = () => {
+    
+  }
+  const closeModal = () => {
+
+  }
 
   if(!isSearchModalOpen){
     return null;
