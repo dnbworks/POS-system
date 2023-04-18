@@ -1,4 +1,6 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { closeModal } from '../../system/systemSlice';
 
 const DiscountModal = ({ selectedItem }) => {
  
@@ -7,9 +9,7 @@ const DiscountModal = ({ selectedItem }) => {
     const [cashOptionEntity, setcashOptionEntity] = useState("amount");
     const inputRef = useRef(null);
 
-    const closeModal = () => {
-
-    }
+    const dispatch = useDispatch();
 
     const editDiscount = () => {
       
@@ -45,7 +45,7 @@ const DiscountModal = ({ selectedItem }) => {
     }
 
     useEffect(() => {
-      inputRef.current?.setSelectionRange(0, 0); // fix
+      // inputRef.current?.setSelectionRange(0, 0); // fix
       inputRef.current?.focus();
       
 
@@ -75,7 +75,7 @@ const DiscountModal = ({ selectedItem }) => {
             <div className="modal__footer">
                 <button onClick={handleEdit}>OK</button>
                 <button onClick={() => {
-                  closeModal("discount")
+                  dispatch(closeModal("discount"));
                   setDiscount(0)
                 }}>Cancel</button>
             </div>

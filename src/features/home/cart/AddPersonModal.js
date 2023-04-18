@@ -1,13 +1,11 @@
 import { BiSearchAlt2 } from "react-icons/bi";
+import { openModal, closeModal } from "../../system/systemSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { selectIsSearchModalOpen } from "../../system/systemSlice";
 
-const AddPersonModal = ({isSearchModalOpen}) => {
-
-  const openModal = () => {
-    
-  }
-  const closeModal = () => {
-
-  }
+const AddPersonModal = () => {
+  const isSearchModalOpen = useSelector(selectIsSearchModalOpen);
+  const dispatch = useDispatch();
 
   if(!isSearchModalOpen){
     return null;
@@ -37,8 +35,8 @@ const AddPersonModal = ({isSearchModalOpen}) => {
             </ul>
           </div>
           <div className="modal__footer">
-            <button onClick={() => openModal({ type: "add_customer" })}>Add</button> 
-            <button onClick={() => closeModal("customer")}>Close</button>
+            <button onClick={() => dispatch(openModal({ type: "add_customer" }))}>Add</button> 
+            <button onClick={() => dispatch(closeModal("customer"))}>Close</button>
           </div>
         </div>
     </div>

@@ -1,18 +1,19 @@
-import React from 'react'
 import { RiDeleteBin5Line } from "react-icons/ri";
-import { useGlobalContext } from '../../../context/AppContext';
+import { useDispatch } from 'react-redux';
+import { removeItem } from  './cartSlice';
+import { openModal } from "../../system/systemSlice";
 
 const SelectedItem = ({ id, name, price, qty, discount, total, totalDisc }) => {
-  const { state: {remove, openModal} } = useGlobalContext();
+  const dispatch = useDispatch();
   return (
     <ul className="item d-flex justify-content-between">
         <li style={{ width: "150px"}}>{ name }</li>
         <li>${ price }</li>
-        <li><span className="edit-btn" onClick={ () => openModal({ type: "qty", id }) } >{ qty }</span></li>
-        <li><span className="edit-btn" onClick={ () => openModal({ type: "discount", id }) } >${ discount }</span></li>
+        <li><span className="edit-btn" onClick={ () => dispatch(openModal({ type: "qty", id })) } >{ qty }</span></li>
+        <li><span className="edit-btn" onClick={ () => dispatch(openModal({ type: "discount", id })) } >${ discount }</span></li>
         <li>${totalDisc}</li>
         <li>${ total }</li>
-        <li onClick={() => remove(id) }><RiDeleteBin5Line/></li>
+        <li onClick={() => dispatch(removeItem(id)) }><RiDeleteBin5Line/></li>
     </ul>
   )
 }

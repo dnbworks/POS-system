@@ -1,13 +1,15 @@
 import { useState, useRef, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { closeModal } from '../../system/systemSlice';
-import { add_to_cart, editQty, edit } from './cartSlice';
+import { add_to_cart, editQty, selectEdit } from './cartSlice';
+
 
 const SelectedItemModal = () => {
   const dispatch = useDispatch();
   const selectedItem = useSelector((state) => state.system.selectedItem);
+  const edit = useSelector(selectEdit);
 
-  const [quantity, setQuantity ] = useState(selectedItem ? selectedItem.qty : 0)
+  const [quantity, setQuantity ] = useState(selectedItem ? selectedItem.qty : 0);
   const [error, setError ] = useState("");
 
   const inputRef = useRef(null);
@@ -23,18 +25,17 @@ const SelectedItemModal = () => {
   const handleChange = ( e ) => {
 
     if(regex.test(e.target.value)){
-      setQuantity(undefined)
       setQuantity(e.target.value)
       setError("");
     } 
 
     if(!regex.test(e.target.value)){
-      setQuantity(undefined)
+      setQuantity("");
       setError("Please no zero and negative number");
     }
    
     if(e.target.value === ""){
-      setQuantity(undefined)
+      setQuantity("");
       setError("Please enter a number");
     }
 
@@ -44,14 +45,13 @@ const SelectedItemModal = () => {
     e.preventDefault();
     // checking stock
     if (error === "" && quantity >= 1) {
-      if(edit && selectedItem){
-        editQty(selectedItem, quantity)
+      if(edit){
+        dispatch(editQty(selectedItem, quantity));
       } else {
-        add_to_cart(selectedItem, quantity)
-        console.log("approved");
+        dispatch(add_to_cart({item: selectedItem, quantity}));
       }
-      console.log(selectedItem, quantity);
       setQuantity("");
+      dispatch(closeModal("item"));
     } else {
       setError("please fill in quantity");
     }
@@ -64,7 +64,7 @@ const SelectedItemModal = () => {
             <span className="modal__border"></span>
             <div className="modal__title">INPUT QTY</div>
         </div>
-        <form className="modal__form d-flex justify-content-between" action='#'>
+        <form className="modal__form d-flex justify-content-between" >
             <div style={{ width: "200px"}}>
               <span>Price:</span>
               <span>$ {selectedItem.price}/kg</span>
@@ -78,7 +78,7 @@ const SelectedItemModal = () => {
                 <button onClick={handleAddToCartBtn}>OK</button>
                 <button onClick={() => {
                   dispatch(closeModal("item"));
-                  setQuantity(0)
+                  setQuantity("")
                 }}>Cancel</button>
             </div>
         </form>

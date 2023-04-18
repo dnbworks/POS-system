@@ -1,5 +1,10 @@
 json-server --watch db.json --port 3004
 
+
+    "@react-pdf/renderer": "^2.0.18",
+     "react-datepicker": "^3.3.0",
+      "react-textarea-autosize": "^8.2.0",
+
 // Defined our third promise
 let thirdPromise = () => {
   return new Promise((resolve, reject) => {

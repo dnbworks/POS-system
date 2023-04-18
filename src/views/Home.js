@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { BsPersonCircle } from "react-icons/bs";
 import { BiHelpCircle } from "react-icons/bi";
@@ -18,7 +18,9 @@ import CategoryList from '../features/home/products/CategoryList';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { selectAllCategories, selectAllProducts } from '../features/home/products/productSlice';
-import { selectCartItems, selectCartSubTotal, selectCartTax, selectCartTotal } from '../features/home/cart/cartSlice';
+import { selectCartItems, selectCartSubTotal, selectCartTax, selectCartTotal, clearCart, get_totals } from '../features/home/cart/cartSlice';
+import { openModal, selectDiscountModal } from '../features/system/systemSlice';
+import PayModal from '../features/home/cart/PayModal';
 
 
 
@@ -27,21 +29,19 @@ import { selectCartItems, selectCartSubTotal, selectCartTax, selectCartTotal } f
 
 const Home = () => {
 
-  const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
-  const [discountModal, setDiscountModal] = useState(false);
   const [isAddPersonModalOpen, setIsAddPersonModalOpen] = useState(false);
   const [selectedItem, SetselectedItem] = useState({});
-  const [edit, setEdit] = useState(false);
   const [list, setList] = useState(false);
   const [grid, setGrid] = useState(true);
-  const [amount, setAmount] = useState(0);
 
   const dispatch = useDispatch();
+
   const products = useSelector(selectAllProducts);
   const categories = useSelector(selectAllCategories);
   const isOpenSelectedModal = useSelector((state) => state.system.isOpenSelectedModal);
+  const discountModal = useSelector(selectDiscountModal);
 
-  console.log(isOpenSelectedModal);
+
 
   const cart = useSelector(selectCartItems);
   const cartSubTotal = useSelector(selectCartSubTotal);
@@ -55,10 +55,6 @@ const Home = () => {
     { value: "price", label: "Price" },
   ]
 
-  const openModal = () => {
-    setIsSearchModalOpen(true);
-  }
-
   const changeDisplay = (id) => {
     if (id == "grid") {
       setGrid(true);
@@ -70,12 +66,16 @@ const Home = () => {
     }
   }
 
+  useEffect(() => {
+    dispatch(get_totals());
+  });
+
   return (
     <div className="container">
       <div className="header d-flex border">
         <div className="header__selected--items v-600">
           <ul className="d-flex justify-content-between py">
-            <li onClick={openModal}><BsPersonCircle /></li>
+            <li onClick={() => dispatch(openModal({type: "customer_search"}))}><BsPersonCircle /></li>
             <li>products({cart.length})</li>
             <li><BiHelpCircle /></li>
           </ul>
@@ -125,11 +125,11 @@ const Home = () => {
               <table>
                 <tr>
                   <td><button>Undo</button></td>
-                  <td><button>Clear All</button></td>
+                  <td><button onClick={() => dispatch(clearCart()) }>Clear All</button></td>
                 </tr>
                 <tr>
-                  <td><button>Discount</button></td>
-                  <td><button>Pay</button></td>
+                  <td><button onClick={() => dispatch(openModal({type: "discount"})) }>Discount</button></td>
+                  <td><button onClick={() => dispatch(openModal({type: "pay"}))}>Pay</button></td>
                 </tr>
               </table>
             </div>
@@ -137,11 +137,11 @@ const Home = () => {
         </div>
         <div className="products_list v-600">
           <div className="options d-flex">
-            <div className="view__type d-flex">
+            <div className="view__type d-flex align-items">
               <span>View</span>
               <OrderByView changeDisplay={changeDisplay}/>
             </div>
-            <div className="sortby d-flex">
+            <div className="sortby d-flex align-items">
               <span>sort by:</span>
               <Dropdown placeHolder="select..." options={options} />
             </div>
@@ -153,10 +153,11 @@ const Home = () => {
           <CategoryList categories={categories}/>
         </div>
       </div>
-      <AddPersonModal isSearchModalOpen={isSearchModalOpen}/>
+      <AddPersonModal />
       <AddPersonDetails />
       {isOpenSelectedModal && <SelectedItemModal />}
       {discountModal && <DiscountModal selectedItem={selectedItem}/>}
+      <PayModal/>
     </div>
   )
 }

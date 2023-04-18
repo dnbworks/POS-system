@@ -13,6 +13,7 @@ const initialState = {
 	discountModal: false,
 	isAddPersonModalOpen: false,
 	selectedItem: null,
+	isPayModalOpen: false
 }
 
 export const systemSlice = createSlice({
@@ -20,7 +21,10 @@ export const systemSlice = createSlice({
 	initialState,
 	reducers: {
 		openModal(state, action) {
-			state.selectedItem = action.payload;
+			// if (action.payload.item) {
+			// 	state.selectedItem = action.payload.item;
+			// }
+
 			if (action.payload.type === "add_customer") {
 			 state.isAddPersonModalOpen = true;
 			}
@@ -31,26 +35,34 @@ export const systemSlice = createSlice({
 					state.isOpenSelectedModal = true;
 					state.selectedItem = action.payload.item;
 			}
-			if (action.payload.type === "qty") {
-					const item = state.cart.find((item) => item.id === action.payload.type)
-					return { ...state, isOpenSelectedModal: true, selectedItem: item, edit: true }
-			}
+			// if (action.payload.type === "qty") {
+			// 		const item = state.cart.find((item) => item.id === action.payload.type)
+			// 		return { ...state, isOpenSelectedModal: true, selectedItem: item, edit: true }
+			// }
 			if (action.payload.type === "discount") {
-					const item = state.cart.find(item => item.id === action.payload.type)
-					return { ...state, discountModal: true, selectedItem: item, edit: true }
+					state.discountModal = true;
+					console.log(action.payload);
 			}
-			console.log(action.payload);
+			if (action.payload.type === "pay") {
+				state.isPayModalOpen = true;
+			}
+		
 		},
 		closeModal(state, action) {
 			if (action.payload === "customer") {
-				return { ...state, isSearchModalOpen: false }
+					state.isSearchModalOpen = false;
+					console.log("yez");
 			}
 			if (action.payload === "item") {
 					state.isOpenSelectedModal = false;
 					state.selectedItem = {};
 			}
 			if (action.payload == "discount") {
-					return { ...state, discountModal: false, selectedItem: undefined }
+				state.discountModal = false;
+				state.selectedItem = {};
+			}
+			if (action.payload === "pay") {
+				state.isPayModalOpen = false;
 			}
 		},
 		changeDisplay(state, action) {
@@ -60,6 +72,11 @@ export const systemSlice = createSlice({
 	}
 });
 
+
+export const selectDiscountModal = (state) => state.system.discountModal;
+export const selectIsSearchModalOpen = (state) => state.system.isSearchModalOpen;
+export const selectIsPayModalOpen = (state) => state.system.isPayModalOpen;
+;
 export const { openModal, closeModal, changeDisplay } = systemSlice.actions;
 
 
