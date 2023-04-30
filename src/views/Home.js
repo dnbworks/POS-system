@@ -15,6 +15,7 @@ import SelectedItemModal from '../features/home/cart/SelectedItemModal';
 import DiscountModal from '../features/home/cart/DiscountModal';
 import Dropdown from '../features/home/products/Dropdown';
 import CategoryList from '../features/home/products/CategoryList';
+import InvoicePage from '../features/home/invoice/components/InvoicePage';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { selectAllCategories, selectAllProducts } from '../features/home/products/productSlice';
@@ -24,12 +25,11 @@ import PayModal from '../features/home/cart/PayModal';
 
 
 
+
 // AiOutlineSortAscending
 // AiOutlineSortDescending
 
 const Home = () => {
-
-  const [isAddPersonModalOpen, setIsAddPersonModalOpen] = useState(false);
   const [selectedItem, SetselectedItem] = useState({});
   const [list, setList] = useState(false);
   const [grid, setGrid] = useState(true);
@@ -56,11 +56,11 @@ const Home = () => {
   ]
 
   const changeDisplay = (id) => {
-    if (id == "grid") {
+    if (id === "grid") {
       setGrid(true);
       setList(false);
     }
-    if (id == "list") {
+    if (id === "list") {
       setGrid(false);
       setList(true);
     }
@@ -125,11 +125,11 @@ const Home = () => {
               <table>
                 <tr>
                   <td><button>Undo</button></td>
-                  <td><button onClick={() => dispatch(clearCart()) }>Clear All</button></td>
+                  <td><button type="button" onClick={() => dispatch(clearCart()) } disabled={!cart.length}>Clear All</button></td>
                 </tr>
                 <tr>
-                  <td><button onClick={() => dispatch(openModal({type: "discount"})) }>Discount</button></td>
-                  <td><button onClick={() => dispatch(openModal({type: "pay"}))}>Pay</button></td>
+                  <td><button type="button" onClick={() => dispatch(openModal({type: "discount"})) } disabled={!cart.length}>Discount</button></td>
+                  <td><button type="button" onClick={() => dispatch(openModal({type: "pay"}))} disabled={!cart.length}>Pay</button></td>
                 </tr>
               </table>
             </div>
@@ -158,6 +158,8 @@ const Home = () => {
       {isOpenSelectedModal && <SelectedItemModal />}
       {discountModal && <DiscountModal selectedItem={selectedItem}/>}
       <PayModal/>
+
+      <InvoicePage/>
     </div>
   )
 }

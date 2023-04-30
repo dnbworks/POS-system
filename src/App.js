@@ -9,7 +9,6 @@ import Statistic from './views/Statistic';
 import Options from './views/Options';
 import LoginPage from './views/LoginPage';
 import ErrorPage from './views/404';
-import { useGlobalContext } from './context/AppContext';
 import SharedLayout from './views/SharedLayout';
 import ReportSharedLayout from './views/ReportSharedLayout';
 import All from './views/report/All';

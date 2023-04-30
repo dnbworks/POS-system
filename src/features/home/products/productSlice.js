@@ -34,7 +34,21 @@ export const productSlice = createSlice({
 	name: 'products',
 	initialState,
 	reducers: {
-	
+			arrangeAsc: (state, action) => {
+				 let productItems = state.productItems.sort(function (a, b) {
+					if (a.name < b.name) {
+							return -1;
+					}
+					if (a.name > b.name) {
+							return 1;
+					}
+					return 0;
+			});
+				state.productItems = productItems;
+			},
+			arrangeDes: (state, action) => {
+				state.productItems = state.productItems.sort().reverse();
+			}
 	},
 	extraReducers(builder){
 		builder
@@ -70,6 +84,6 @@ export const selectAllProducts = (state) => state.products.productItems;
 export const selectAllCategories = (state) => state.products.category;
 export const selectStatus = (state) => state.products.status;
 
-export const {  } = productSlice.actions;
+export const { arrangeAsc, arrangeDes } = productSlice.actions;
 
 export default productSlice.reducer;

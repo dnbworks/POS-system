@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './asset/css/styles.css';
+// import './features/home/invoice/scss/main.css'
 import App from './App';
 
 import { BrowserRouter as Router } from 'react-router-dom'; 
-import { AppProvider } from './context/AppContext'
 
 import { store } from './app/store';
 import { Provider } from 'react-redux';
