@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+
 import { initialInvoice, initialProductLine } from '../data/initialData'
 import EditableInput from './EditableInput'
 import EditableSelect from './EditableSelect'
@@ -13,6 +14,10 @@ import Text from './Text'
 import { Font } from '@react-pdf/renderer'
 import Download from './DownloadPDF'
 import format from 'date-fns/format'
+import { useSelector } from 'react-redux';
+
+import { selectIsInvoiceOpen } from '../../../system/systemSlice';
+// import dispatch from '../hooks/useDispatchHook';
 
 Font.register({
   family: 'Nunito',
@@ -22,8 +27,12 @@ Font.register({
   ],
 })
 
+  // const dispatch = useDispatch();
+const InvoicePage = ({ data, pdfMode, close_btn_invoice }) => {
+  // const dispatch = useDispatch();
+  // const isInvoiceOpen = useSelector(selectIsInvoiceOpen);
+  // console.log(close_btn_invoice);
 
-const InvoicePage = ({ data, pdfMode }) => {
   const [invoice, setInvoice] = useState(data ? { ...data } : { ...initialInvoice })
   const [subTotal, setSubTotal] = useState()
   const [saleTax, setSaleTax] = useState()
@@ -128,6 +137,7 @@ const InvoicePage = ({ data, pdfMode }) => {
     <Document pdfMode={pdfMode}>
       <Page className="invoice-wrapper" pdfMode={pdfMode}>
         {!pdfMode && <Download data={invoice} />}
+        <button className="close_btn_invoice" onClick={close_btn_invoice}>close</button>
 
         <View className="flex" pdfMode={pdfMode}>
           <View className="w-50" pdfMode={pdfMode}>

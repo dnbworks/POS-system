@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { selectIsPayModalOpen, closeModal } from "../../system/systemSlice";
+import { selectIsPayModalOpen, closeModal, openModal } from "../../system/systemSlice";
 const PayModal = () => {
  const dispatch = useDispatch();
 	const isPayModalOpen = useSelector(selectIsPayModalOpen);
@@ -67,7 +67,7 @@ const PayModal = () => {
 							
 			</div>
 			<div>
-						<button>Save & Print Invoice</button>
+						<button onClick={() => dispatch(openModal({type: "invoice"})) }>Save & Print Invoice</button>
 						<button onClick={() => dispatch(closeModal("pay"))}>Close</button>
 					</div>
 			</div>

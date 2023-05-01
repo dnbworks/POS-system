@@ -20,16 +20,13 @@ import InvoicePage from '../features/home/invoice/components/InvoicePage';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectAllCategories, selectAllProducts } from '../features/home/products/productSlice';
 import { selectCartItems, selectCartSubTotal, selectCartTax, selectCartTotal, clearCart, get_totals } from '../features/home/cart/cartSlice';
-import { openModal, selectDiscountModal } from '../features/system/systemSlice';
+import { closeModal, openModal, selectDiscountModal, selectIsInvoiceOpen } from '../features/system/systemSlice';
 import PayModal from '../features/home/cart/PayModal';
 
 
 
-
-// AiOutlineSortAscending
-// AiOutlineSortDescending
-
 const Home = () => {
+
   const [selectedItem, SetselectedItem] = useState({});
   const [list, setList] = useState(false);
   const [grid, setGrid] = useState(true);
@@ -39,6 +36,7 @@ const Home = () => {
   const products = useSelector(selectAllProducts);
   const categories = useSelector(selectAllCategories);
   const isOpenSelectedModal = useSelector((state) => state.system.isOpenSelectedModal);
+  const isInvoiceOpen = useSelector(selectIsInvoiceOpen);
   const discountModal = useSelector(selectDiscountModal);
 
 
@@ -64,6 +62,11 @@ const Home = () => {
       setGrid(false);
       setList(true);
     }
+  }
+
+  const close_btn_invoice = () => {
+    dispatch(closeModal("pay"));
+    dispatch(closeModal("invoice"));
   }
 
   useEffect(() => {
@@ -103,19 +106,19 @@ const Home = () => {
             <SelectedItems />
 
             <div className="totals">
-              <div className="block d-flex justify-content-between">
+              <div className="d-flex justify-content-between">
                 <span>SubTotal:</span>
                 <span>{cartSubTotal}</span>
               </div>
-              <div className="block d-flex justify-content-between">
+              <div className="d-flex justify-content-between">
                 <span>Tax:</span>
                 <span>{cartTax}</span>
               </div>
-              <div className="block d-flex justify-content-between">
+              <div className="d-flex justify-content-between">
                 <span>Order Discount:</span>
                 <span>0</span>
               </div>
-              <div className="block d-flex justify-content-between">
+              <div className="d-flex justify-content-between">
                 <span>Total:</span>
                 <span>{cartTotal}</span>
               </div>
@@ -123,6 +126,7 @@ const Home = () => {
 
             <div className="controls">
               <table>
+                <tbody>  
                 <tr>
                   <td><button>Undo</button></td>
                   <td><button type="button" onClick={() => dispatch(clearCart()) } disabled={!cart.length}>Clear All</button></td>
@@ -131,6 +135,7 @@ const Home = () => {
                   <td><button type="button" onClick={() => dispatch(openModal({type: "discount"})) } disabled={!cart.length}>Discount</button></td>
                   <td><button type="button" onClick={() => dispatch(openModal({type: "pay"}))} disabled={!cart.length}>Pay</button></td>
                 </tr>
+                </tbody>
               </table>
             </div>
           </div>
@@ -158,8 +163,9 @@ const Home = () => {
       {isOpenSelectedModal && <SelectedItemModal />}
       {discountModal && <DiscountModal selectedItem={selectedItem}/>}
       <PayModal/>
-
-      <InvoicePage/>
+      <div className='invoice-wrapper-fixed' style={ isInvoiceOpen ? {display: "block"} : {display: "none"}}>
+        <InvoicePage close_btn_invoice={close_btn_invoice}/>
+      </div>
     </div>
   )
 }

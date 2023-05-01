@@ -13,7 +13,8 @@ const initialState = {
 	discountModal: false,
 	isAddPersonModalOpen: false,
 	selectedItem: null,
-	isPayModalOpen: false
+	isPayModalOpen: false,
+	isInvoiceOpen: false
 }
 
 export const systemSlice = createSlice({
@@ -21,9 +22,6 @@ export const systemSlice = createSlice({
 	initialState,
 	reducers: {
 		openModal(state, action) {
-			// if (action.payload.item) {
-			// 	state.selectedItem = action.payload.item;
-			// }
 
 			if (action.payload.type === "add_customer") {
 			 state.isAddPersonModalOpen = true;
@@ -34,6 +32,9 @@ export const systemSlice = createSlice({
 			if (action.payload.type === "item") {
 					state.isOpenSelectedModal = true;
 					state.selectedItem = action.payload.item;
+			}
+			if (action.payload.type === "invoice") {
+					state.isInvoiceOpen = true;
 			}
 			// if (action.payload.type === "qty") {
 			// 		const item = state.cart.find((item) => item.id === action.payload.type)
@@ -64,6 +65,9 @@ export const systemSlice = createSlice({
 			if (action.payload === "pay") {
 				state.isPayModalOpen = false;
 			}
+			if (action.payload === "invoice") {
+				state.isInvoiceOpen = false;
+			}
 		},
 		changeDisplay(state, action) {
 
@@ -76,7 +80,8 @@ export const systemSlice = createSlice({
 export const selectDiscountModal = (state) => state.system.discountModal;
 export const selectIsSearchModalOpen = (state) => state.system.isSearchModalOpen;
 export const selectIsPayModalOpen = (state) => state.system.isPayModalOpen;
-;
+export const selectIsInvoiceOpen = (state) => state.system.isInvoiceOpen;
+
 export const { openModal, closeModal, changeDisplay } = systemSlice.actions;
 
 
