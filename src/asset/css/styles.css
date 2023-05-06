@@ -1120,3 +1120,7 @@ header {
     height: 30px;
     transition: opacity 0.2s ease-in-out;
 }
+
+.pie-wrapper {
+    width: 300px;
+}

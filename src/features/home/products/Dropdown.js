@@ -28,6 +28,7 @@ const Dropdown = ({ placeHolder, options }) => {
 
   const getDisplay = () => {
     if (selectValue) {
+      console.log(selectValue.label);
       return selectValue.label;
     }
     return placeHolder;

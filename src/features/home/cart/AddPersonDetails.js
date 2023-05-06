@@ -1,9 +1,8 @@
-import React from 'react'
-import { useGlobalContext } from '../../../context/AppContext';
-
-
 const AddPersonDetails = () => {
-  const { state: { isAddPersonModalOpen, closeModal } } = useGlobalContext();
+  const isAddPersonModalOpen = "";
+  const closeModal = () => {
+
+  }
 
   if(!isAddPersonModalOpen){
     return null;

@@ -14,7 +14,8 @@ const initialState = {
 	isAddPersonModalOpen: false,
 	selectedItem: null,
 	isPayModalOpen: false,
-	isInvoiceOpen: false
+	isInvoiceOpen: false,
+	sortby: ""
 }
 
 export const systemSlice = createSlice({

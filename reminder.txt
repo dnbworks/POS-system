@@ -60,3 +60,30 @@ users.sort(function (a, b) {
 
 list..
 bug invoicepage can not useDispatch;
+
+npm i --save-dev @types/react-charts
+
+
+import FontUbuntuRegular from './styles/pdfFonts/ubuntuRegular.ttf';
+    import FontUbuntuItalic from '.7styles/pdfFonts/ubuntuItalic.ttf';
+    import FontUbuntu700 from './styles/pdfFonts/ubuntu700.ttf';
+    
+    Font.register({
+      family: 'Ubuntu',
+      fonts: [
+        {
+          src: FontUbuntuRegular,
+        },
+        {
+          src: FontUbuntuItalic,
+          fontWeight: 'bold',
+        },
+        {
+          src: FontUbuntu700,
+          fontWeight: 'normal',
+          fontStyle: 'italic',
+        },
+      ],
+
+
+csv react npm
